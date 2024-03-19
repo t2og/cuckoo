@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cuckoo"
+version = "0.0.2"
+dependencies = [
+    "requests",
+    "python-dotenv",
+    "PyYAML",
+    "google-api-python-client",
+    "google-auth-httplib2",
+    "google-auth-oauthlib"
+]
+
+[project.scripts]
+cuckoo = "cuckoo.tracker:cli"

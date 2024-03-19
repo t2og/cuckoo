@@ -1,0 +1,21 @@
+tokens: 
+  - symbol: 
+      id: bitcoin
+  - symbol: 
+      id: bonk
+      gt: 0.000030
+      lte: 0.000028
+  - pool: 
+      address: 0x971add32ea87f10bd192671630be3be8a11b8623
+      name: CRV / cvxCRV
+      attribute: quote_token_price_base_token
+      gte: 0.92
+      lte: 0.89
+
+displays: 
+    - console:
+
+messengers:
+    - console:
+    - mail: []
+    - telegram: []
