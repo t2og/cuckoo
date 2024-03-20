@@ -7,9 +7,9 @@ from cuckoo.utils import LOGGER
 class Coingecko(DataSource):
     # Datasource name
     name = "coingecko"
-    # Setting query parameter, multiple address
+    # Query parameter which is multiple address
     parameters: Tuple[str, ...]
-    # Setting the return currency of token
+    # The return currency of token
     currency: str = "usd"
 
     def __init__(self, *args: str) -> None:
@@ -23,7 +23,6 @@ class Coingecko(DataSource):
             f"https://api.coingecko.com/api/v3/simple/price?ids={token_ids}&vs_currencies={self.currency}"
         )
 
-        # No response
         if response is None or len(response) == 0:
             LOGGER.warn(f"No {token_ids} data")
             return tokens

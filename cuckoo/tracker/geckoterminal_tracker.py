@@ -15,6 +15,15 @@ class GeckoterminalTracker(TokenTracker):
     def __init__(
         self, pools: List[dict], displays: List[Observer], messengers: List[Messenger]
     ) -> None:
+        """
+        Initialize a GeckoterminalTracker instance.
+
+        Args:
+            pools: List of dictionaries representing token pools.
+                   Example: [{'network': 'ETH', 'address': '0x123...', 'name':'abc', 'attribute': 'base_token_price_usd'}, {...}]
+            displays: List of display observers to visualize data.
+            messengers: List of messengers to alert the user when the price reaches the set conditions.
+        """
         handlers: List[Observer] = []
         handlers.extend(displays)
         pool_infos: List[Geckoterminal.PoolInfo] = []

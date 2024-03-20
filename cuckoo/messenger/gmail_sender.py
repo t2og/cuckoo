@@ -29,7 +29,7 @@ class GmailSender(Messenger):
 
     def send_email(self, subject, body):
         try:
-            # create gmail api client
+            # Create gmail api client
             service = build("gmail", "v1", credentials=self.creds)
             message = EmailMessage()
             message.set_content(body)
@@ -37,7 +37,7 @@ class GmailSender(Messenger):
             message["From"] = self.from_email
             message["Subject"] = subject
 
-            # encoded message
+            # Encoded message
             encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
 
             create_message = {"raw": encoded_message}

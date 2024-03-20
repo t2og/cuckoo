@@ -12,11 +12,13 @@ class CoingeckoTracker(TokenTracker):
         self, symbols: List[dict], displays: List[Observer], messengers: List[Messenger]
     ) -> None:
         """
-        Load tokens from a dict of a config yaml file
+        Initialize a CoingeckoTracker instance.
 
         Args:
-            symbols: e.g. [{'id': 'token1', 'gte': 100, 'lt': 80}, {'id': 'token2', 'gt': 1.2, 'lte': 0.9}]
-            messengers: a branch of messenger which is to alert to user when the price hit they set.
+            symbols: List of dictionaries representing token id.
+                     Example: [{'id': 'token1', 'gte': 100, 'lt': 80}, {'id': 'token2', 'gt': 1.2, 'lte': 0.9}]
+            displays: List of display observers to visualize data.
+            messengers: List of messengers to alert the user when the price reaches the set conditions.
         """
         ids = []
         handlers: List[Observer] = []

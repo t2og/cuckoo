@@ -49,6 +49,7 @@ def active_command_mode(args: dict):
     LOGGER.info(f"Target price: {target_price}")
     LOGGER.info(f"Send mail to: {send_mail}")
 
+    # Setting up data source and tracker
     datasource = Coingecko(*watch_tokens.split(","))
     tracker = TokenTracker(datasource)
     LOGGER.info(f"Datasource: {tracker.get_datasource_name()}")
@@ -56,13 +57,15 @@ def active_command_mode(args: dict):
     # Register watcher handler
     watcher_handler = WatcherHandler()
     tracker.attach(watcher_handler)
-    # Register checker handler
+
+    # Registering checker handler if check_token is provided
     if not check_token is None:
         if checker is None:
             raise ValueError("Missing checker value")
         if target_price is None:
             raise ValueError("Missing target value")
-
+        
+        # Creating processor based on checker type
         if HIGHER_PROCESSOR in checker:
             processor = SimpleProcessor(
                 target_price, SimpleProcessor.Condition.GREATER_OR_EQUAL
@@ -75,10 +78,13 @@ def active_command_mode(args: dict):
             raise ValueError(
                 f"The checker value should be in {HIGHER_PROCESSOR},{LOWER_PROCESSOR}"
             )
-
+        
+        # Setting up messengers for notification
         messengers: List[Messenger] = [ConsoleSender()]
         if not send_mail is None:
             messengers.append(EmailSender(send_mail))
+        
+        # Registering checker handler
         checker_handler = CheckerHandler(check_token, processor, messengers)
         LOGGER.info(
             f"Setting {len(checker_handler.get_messengers())} Messenger: {checker_handler.get_messengers()}"
@@ -91,7 +97,7 @@ def active_command_mode(args: dict):
 
     WAIT_TIME = 6
     while True:
-        # Start tracker
+        # Starting tracker        
         tracker.fetch()
         time.sleep(WAIT_TIME * 60)
 
@@ -119,7 +125,7 @@ def active_config_mode(watchlist_config: str):
 
     pools = [pool[TOKEN_POOL] for pool in watchlist_data[TOKENS] if TOKEN_POOL in pool]
 
-    # Get tracker
+    # Initialize trackers based on available data
     trackers = []
     if len(symbols) > 0:
         trackers.append(CoingeckoTracker(symbols, displays, messengers))
@@ -128,11 +134,10 @@ def active_config_mode(watchlist_config: str):
 
     WAIT_TIME = 6
     while True:
-        # Start trackers
+        # Start fetching data from all trackers
         for tracker in trackers:
             tracker.fetch()
 
-        # Interval
         time.sleep(WAIT_TIME * 60)
 
 
@@ -178,10 +183,10 @@ def cli():
 
     watchlist_config = args.pop("watchlist")
     if watchlist_config:
-        # Config mode
+        # Config Mode: Load watchlist configuration file
         active_config_mode(watchlist_config)
     else:
-        # Command line mode
+        # Command Line Mode: Execute based on command line arguments
         active_command_mode(args)
 
 

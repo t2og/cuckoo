@@ -6,7 +6,6 @@ from cuckoo.utils import DISPLAY_CONSOLE
 
 
 class HandlerManager:
-
     @staticmethod
     def get_displays(display_items: List[dict]) -> List[Observer]:
         displays: List[Observer] = []

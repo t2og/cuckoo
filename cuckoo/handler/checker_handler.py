@@ -25,7 +25,7 @@ class CheckerHandler(Observer):
 
     def update(self, subject: Subject) -> None:
         if self.symbol in subject.tokens:
-            # price = subject.tokens[self.symbol].price
+            # Check price is out of range
             exceed, tips = self.processor.exceed(subject.tokens[self.symbol])
             if exceed:
                 for m in self.messengers:

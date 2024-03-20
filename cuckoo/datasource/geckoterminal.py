@@ -10,9 +10,9 @@ class Geckoterminal(DataSource):
             self.address = address
             self.attribute = attribute
 
-    # Setting datasource name
+    # Datasource name
     name = "geckoterminal"
-    # Setting query address and attribute of return, address:attribute
+    # Query parameter
     pools: List[PoolInfo]
 
     def __init__(self, pools: List[PoolInfo]) -> None:

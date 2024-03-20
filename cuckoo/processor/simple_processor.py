@@ -5,7 +5,7 @@ from cuckoo.base import ConditionProcessor, Token
 from cuckoo.utils import get_pretty_number
 
 HIGH_PRICE = "higher than"
-LOW_PRICE = "less than"
+LOW_PRICE = "lower than"
 EQUAL_PRICE = "equal to"
 WITHIN_PRICE = "within"
 
@@ -37,7 +37,7 @@ class SimpleProcessor(ConditionProcessor):
                 self.is_stopped = True
                 return (
                     True,
-                    f"{token.symbol.upper()} current price {token_price} is {HIGH_PRICE if token.price > self.target_value else EQUAL_PRICE} the set price {target_price}",
+                    f"{token.symbol.upper()} {HIGH_PRICE if token.price > self.target_value else EQUAL_PRICE} {target_price}, now at {token_price}",
                 )
         elif self.condition in [
             SimpleProcessor.Condition.LESS_THAN,
@@ -47,10 +47,10 @@ class SimpleProcessor(ConditionProcessor):
                 self.is_stopped = True
                 return (
                     True,
-                    f"{token.symbol.upper()} current price {token_price} is {LOW_PRICE if token.price < self.target_value else EQUAL_PRICE} the set price {target_price}",
+                    f"{token.symbol.upper()} {LOW_PRICE if token.price < self.target_value else EQUAL_PRICE} {target_price}, now at {token_price}",
                 )
 
         return (
             False,
-            f"{token.symbol.upper()} current price {token_price} is {WITHIN_PRICE} the set price range",
+            f"{token.symbol.upper()} {WITHIN_PRICE} the set price range, now at {token_price}",
         )
