@@ -13,8 +13,8 @@ from cuckoo.messenger.email_sender import EmailSender
 from cuckoo.messenger.messenger_manager import MessengerManager
 from cuckoo.processor.simple_processor import SimpleProcessor
 from cuckoo.tracker.coingecko_tracker import CoingeckoTracker
+from cuckoo.tracker.geckoterminal_tracker import GeckoterminalTracker
 from cuckoo.tracker.token_tracker import TokenTracker
-from cuckoo.tracker.tracker_manager import TrackerManager
 from cuckoo.utils import (
     DISPLAYS,
     LOGGER,
@@ -120,14 +120,19 @@ def active_config_mode(watchlist_config: str):
     pools = [pool[TOKEN_POOL] for pool in watchlist_data[TOKENS] if TOKEN_POOL in pool]
 
     # Get tracker
-    tracker_manager = TrackerManager()
-    tracker = tracker_manager.get_coingecko(symbols, displays, messengers)
-    # tracker2 = TrackerManager.get_geckoterminal(pools,displays,messengers)
+    trackers = []
+    if len(symbols) > 0:
+        trackers.append(CoingeckoTracker(symbols, displays, messengers))
+    if len(pools) > 0:
+        trackers.append(GeckoterminalTracker(pools, displays, messengers))
 
     WAIT_TIME = 6
     while True:
-        # Start tracker
-        tracker.fetch()
+        # Start trackers
+        for tracker in trackers:
+            tracker.fetch()
+
+        # Interval
         time.sleep(WAIT_TIME * 60)
 
 

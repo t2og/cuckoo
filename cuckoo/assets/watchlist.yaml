@@ -6,11 +6,19 @@ tokens:
       gt: 0.000030
       lte: 0.000028
   - pool: 
-      address: 0x971add32ea87f10bd192671630be3be8a11b8623
+      network: eth
+      address: "0x971add32ea87f10bd192671630be3be8a11b8623"
       name: CRV / cvxCRV
       attribute: quote_token_price_base_token
       gte: 0.92
       lte: 0.89
+  - pool:
+      network: solana
+      address: 3ne4mWqdYuNiYrYZC9TrA3FcfuFdErghH97vNPbjicr1
+      name: BONK / SOL
+      attribute: base_token_price_usd
+      gte: 0.000030
+      lte: 0.000028
 
 displays: 
     - console:
