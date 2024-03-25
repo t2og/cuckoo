@@ -8,7 +8,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 LOGGING_NAME = "cuckoo"
+DEFAULT_REFRESH_MINUTES = 6
 # ENV config
+REFRESH_MINUTES = "REFRESH_MINUTES"
 SMTP_SERVER = "SMTP_SERVER"
 SMTP_PORT = "SMTP_PORT"
 SMTP_USER = "SMTP_USER"
@@ -35,6 +37,8 @@ MESSENGER_TELEGRAM = "telegram"
 
 
 VERBOSE = str(os.getenv(LOG_VERBOSE, True)).lower() == "true"
+
+INTERVAL_MINUTES = float(os.getenv(REFRESH_MINUTES, DEFAULT_REFRESH_MINUTES))
 
 SUBSCRIPT_DIGITS = {
     0: "\u2080",

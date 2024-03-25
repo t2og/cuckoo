@@ -15,15 +15,8 @@ from cuckoo.processor.simple_processor import SimpleProcessor
 from cuckoo.tracker.coingecko_tracker import CoingeckoTracker
 from cuckoo.tracker.geckoterminal_tracker import GeckoterminalTracker
 from cuckoo.tracker.token_tracker import TokenTracker
-from cuckoo.utils import (
-    DISPLAYS,
-    LOGGER,
-    MESSENGERS,
-    TOKEN_POOL,
-    TOKEN_SYMBOL,
-    TOKENS,
-    yaml_load,
-)
+from cuckoo.utils import (DISPLAYS, INTERVAL_MINUTES, LOGGER, MESSENGERS,
+                          TOKEN_POOL, TOKEN_SYMBOL, TOKENS, yaml_load)
 
 HIGHER_PROCESSOR = "higher"
 LOWER_PROCESSOR = "lower"
@@ -64,7 +57,7 @@ def active_command_mode(args: dict):
             raise ValueError("Missing checker value")
         if target_price is None:
             raise ValueError("Missing target value")
-        
+
         # Creating processor based on checker type
         if HIGHER_PROCESSOR in checker:
             processor = SimpleProcessor(
@@ -78,12 +71,12 @@ def active_command_mode(args: dict):
             raise ValueError(
                 f"The checker value should be in {HIGHER_PROCESSOR},{LOWER_PROCESSOR}"
             )
-        
+
         # Setting up messengers for notification
         messengers: List[Messenger] = [ConsoleSender()]
         if not send_mail is None:
             messengers.append(EmailSender(send_mail))
-        
+
         # Registering checker handler
         checker_handler = CheckerHandler(check_token, processor, messengers)
         LOGGER.info(
@@ -95,11 +88,10 @@ def active_command_mode(args: dict):
         f"Register {len(tracker.get_observers())} handlers: {tracker.get_observers()}"
     )
 
-    WAIT_TIME = 6
     while True:
-        # Starting tracker        
+        # Starting tracker
         tracker.fetch()
-        time.sleep(WAIT_TIME * 60)
+        time.sleep(INTERVAL_MINUTES * 60)
 
 
 def active_config_mode(watchlist_config: str):
@@ -132,13 +124,12 @@ def active_config_mode(watchlist_config: str):
     if len(pools) > 0:
         trackers.append(GeckoterminalTracker(pools, displays, messengers))
 
-    WAIT_TIME = 6
     while True:
         # Start fetching data from all trackers
         for tracker in trackers:
             tracker.fetch()
 
-        time.sleep(WAIT_TIME * 60)
+        time.sleep(INTERVAL_MINUTES * 60)
 
 
 def cli():
