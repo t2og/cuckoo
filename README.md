@@ -36,7 +36,7 @@ Alternatively, if you prefer to use the [Gmail API](https://developers.google.co
 
 ```
 GMAIL_TOKEN=token.json
-GMAIL_FROM=your@gmail.com
+GMAIL_FROM=yourname@gmail.com
 ```
 
 The default refresh time is 6 minutes; however, you can modify this interval through the following environment variables. For instance, setting it to refresh the data every 30 seconds can be done as shown below:
@@ -46,14 +46,14 @@ REFRESH_MINUTES=0.5
 ```
 
 > [!NOTE]
-> Setting the refresh interval too low may result in an Error 429 due to rate limits imposed by CoinGecko or other data sources.
+> Setting the refresh interval too low may result in an **Error 429** due to rate limits imposed by CoinGecko or other data sources.
 
 ## Command-line usage
 
 For instance, if you want to track the price of Bitcoin and ETH, and receive a message when ETH's price hits 3800, you can input the following command:
 
 ```
-cuckoo --watch_tokens bitcoin,ethereum --check_token ethereum --checker higher --target_price 3800 --send_mail your@yourdomain.com
+cuckoo --watch_tokens bitcoin,ethereum --check_token ethereum --checker higher --target_price 3800 --send_mail yourname@domainname.com
 ```
 
 ## Config-based usage
@@ -88,5 +88,5 @@ displays:
 
 messengers:
     - console:
-    - mail: [your@yourdomain.com]
+    - mail: [yourname@domainname.com]
 ```
