@@ -10,12 +10,6 @@ Ensure you have Python 3.10 or above installed. You can download and install (or
 pip install t2og-cuckoo
 ```
 
-Alternatively, you can pull and install the latest version from this repository using the following command:
-
-```
-pip install git+https://github.com/t2og/cuckoo.git
-```
-
 ## Configuration
 
 There are two types of configuration: environment variables to configure Cuckoo, and a watchlist config where you can specify what assets you want to track the price of when using Config-based usage.
