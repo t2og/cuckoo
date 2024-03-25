@@ -6,7 +6,8 @@ build-backend = "setuptools.build_meta"
 name = "t2og-cuckoo"
 dynamic = ["version"]
 requires-python = ">=3.10"
-license = {file = "LICENSE"}
+authors = [{name="t2og"}]
+license = {text = "MIT License"}
 readme = {file = "README.md", content-type = "text/markdown"}
 dependencies = [
     "requests",
@@ -16,6 +17,10 @@ dependencies = [
     "google-auth-httplib2",
     "google-auth-oauthlib"
 ]
+
+[project.urls]
+Homepage = "https://github.com/t2og/cuckoo"
+Repository = "https://github.com/t2og/cuckoo.git"
 
 [project.scripts]
 cuckoo = "cuckoo.tracker:cli"
