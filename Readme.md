@@ -45,8 +45,8 @@ The default refresh time is 6 minutes; however, you can modify this interval thr
 REFRESH_MINUTES=0.5
 ```
 
-[!NOTE]
-Setting the refresh interval too low may result in an Error 429 due to rate limits imposed by CoinGecko or other data sources.
+> [!NOTE]
+> Setting the refresh interval too low may result in an Error 429 due to rate limits imposed by CoinGecko or other data sources.
 
 ## Command-line usage
 
